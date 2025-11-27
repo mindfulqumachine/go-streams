@@ -1,0 +1,163 @@
+# go-streams/pkg/stream
+pkg/stream/config.go:12:6: can inline sanitizeDOP with cost 67 as: func(int) int { if dop <= 0 { return runtime.GOMAXPROCS(0) }; return dop }
+pkg/stream/execution.go:22:6: cannot inline executionFromErrGroup: unhandled op GO
+pkg/stream/execution.go:25:5: can inline executionFromErrGroup.func1 with cost 63 as: func() { execErr = (*errgroup.Group).Wait(g); close(done) }
+pkg/stream/execution.go:31:9: can inline executionFromErrGroup.func2 with cost 2 as: func() error { return execErr }
+pkg/stream/execution.go:37:6: cannot inline combineExecutions: unhandled op GO
+pkg/stream/execution.go:42:16: cannot inline combineExecutions.func1: unhandled op DEFER
+pkg/stream/execution.go:45:4: can inline combineExecutions.func1.deferwrap1 with cost 76 as: func() { (*sync.Mutex).Unlock(.autotmp_1) }
+pkg/stream/execution.go:52:5: cannot inline combineExecutions.func2: unhandled op DEFER
+pkg/stream/execution.go:53:3: can inline combineExecutions.func2.deferwrap1 with cost 2 as: func() { close(.autotmp_0) }
+pkg/stream/execution.go:71:7: cannot inline combineExecutions.func2.1: unhandled op DEFER
+pkg/stream/execution.go:71:27: can inline combineExecutions.func2.1.deferwrap1 with cost 62 as: func() { (*sync.WaitGroup).Done(.autotmp_1) }
+pkg/stream/execution.go:71:4: can inline combineExecutions.func2.gowrap2 with cost 20 as: func() { .autotmp_3(.autotmp_4) }
+pkg/stream/execution.go:78:8: cannot inline combineExecutions.func3: unhandled op DEFER
+pkg/stream/execution.go:80:4: can inline combineExecutions.func3.deferwrap1 with cost 76 as: func() { (*sync.Mutex).Unlock(.autotmp_1) }
+pkg/stream/execution.go:88:36: can inline executionFromChan.func1 with cost 2 as: func() error { return nil }
+pkg/stream/execution.go:87:6: can inline executionFromChan with cost 21 as: func(<-chan struct {}) Execution { return Execution{...} }
+pkg/stream/execution.go:44:11: inlining call to sync.(*Mutex).Lock
+pkg/stream/execution.go:44:11: inlining call to sync.(*Mutex).Lock
+pkg/stream/execution.go:45:19: inlining call to sync.(*Mutex).Unlock
+pkg/stream/execution.go:45:19: inlining call to sync.(*Mutex).Unlock
+pkg/stream/execution.go:71:40: inlining call to sync.(*WaitGroup).Done
+pkg/stream/execution.go:79:11: inlining call to sync.(*Mutex).Lock
+pkg/stream/execution.go:79:11: inlining call to sync.(*Mutex).Lock
+pkg/stream/execution.go:80:19: inlining call to sync.(*Mutex).Unlock
+pkg/stream/execution.go:80:19: inlining call to sync.(*Mutex).Unlock
+pkg/stream/execution.go:25:5: func literal escapes to heap in executionFromErrGroup:
+pkg/stream/execution.go:25:5:   flow: {heap} ← &{storage for func literal}:
+pkg/stream/execution.go:25:5:     from func literal (spill) at pkg/stream/execution.go:25:5
+pkg/stream/execution.go:24:6: executionFromErrGroup capturing by ref: execErr (addr=false assign=true width=16)
+pkg/stream/execution.go:24:6: execErr escapes to heap in executionFromErrGroup:
+pkg/stream/execution.go:24:6:   flow: {storage for func literal} ← &execErr:
+pkg/stream/execution.go:24:6:     from execErr (captured by a closure) at pkg/stream/execution.go:26:3
+pkg/stream/execution.go:24:6:     from execErr (reference) at pkg/stream/execution.go:26:3
+pkg/stream/execution.go:22:28: executionFromErrGroup capturing by value: g (addr=false assign=false width=8)
+pkg/stream/execution.go:23:2: executionFromErrGroup capturing by value: done (addr=false assign=false width=8)
+pkg/stream/execution.go:24:6: executionFromErrGroup capturing by ref: execErr (addr=true assign=true width=16)
+pkg/stream/execution.go:22:28: parameter g leaks to {heap} for executionFromErrGroup with derefs=0:
+pkg/stream/execution.go:22:28:   flow: {heap} ← g:
+pkg/stream/execution.go:22:28:     from (*errgroup.Group).Wait(g) (call parameter) at pkg/stream/execution.go:26:19
+pkg/stream/execution.go:22:28: parameter g leaks to {storage for func literal} for executionFromErrGroup with derefs=0:
+pkg/stream/execution.go:22:28:   flow: {storage for func literal} ← g:
+pkg/stream/execution.go:22:28:     from g (captured by a closure) at pkg/stream/execution.go:26:13
+pkg/stream/execution.go:31:9: func literal escapes to heap in executionFromErrGroup:
+pkg/stream/execution.go:31:9:   flow: ~r0 ← &{storage for func literal}:
+pkg/stream/execution.go:31:9:     from func literal (spill) at pkg/stream/execution.go:31:9
+pkg/stream/execution.go:31:9:     from Execution{...} (struct literal element) at pkg/stream/execution.go:29:18
+pkg/stream/execution.go:31:9:     from return Execution{...} (return) at pkg/stream/execution.go:29:2
+pkg/stream/execution.go:22:28: leaking param: g
+pkg/stream/execution.go:24:6: moved to heap: execErr
+pkg/stream/execution.go:25:5: func literal escapes to heap
+pkg/stream/execution.go:31:9: func literal escapes to heap
+pkg/stream/execution.go:52:5: func literal escapes to heap in combineExecutions:
+pkg/stream/execution.go:52:5:   flow: {heap} ← &{storage for func literal}:
+pkg/stream/execution.go:52:5:     from func literal (spill) at pkg/stream/execution.go:52:5
+pkg/stream/execution.go:65:7: wg escapes to heap in combineExecutions.func2:
+pkg/stream/execution.go:65:7:   flow: {heap} ← &wg:
+pkg/stream/execution.go:65:7:     from wg (address-of) at pkg/stream/execution.go:70:6
+pkg/stream/execution.go:65:7:     from (*sync.WaitGroup).Add(wg, 1) (call parameter) at pkg/stream/execution.go:70:10
+pkg/stream/execution.go:71:4: func literal escapes to heap in combineExecutions.func2:
+pkg/stream/execution.go:71:4:   flow: {heap} ← &{storage for func literal}:
+pkg/stream/execution.go:71:4:     from func literal (spill) at pkg/stream/execution.go:71:4
+pkg/stream/execution.go:65:7: wg escapes to heap in combineExecutions.func2:
+pkg/stream/execution.go:65:7:   flow: {heap} ← &wg:
+pkg/stream/execution.go:65:7:     from wg (address-of) at pkg/stream/execution.go:73:5
+pkg/stream/execution.go:65:7:     from (*sync.WaitGroup).Wait(wg) (call parameter) at pkg/stream/execution.go:73:10
+pkg/stream/execution.go:40:6: combineExecutions capturing by ref: mu (addr=true assign=false width=8)
+pkg/stream/execution.go:39:6: combineExecutions capturing by ref: combinedErr (addr=false assign=true width=16)
+pkg/stream/execution.go:45:12: combineExecutions.func1 capturing by value: .autotmp_1 (addr=false assign=false width=8)
+pkg/stream/execution.go:38:2: combineExecutions capturing by value: done (addr=false assign=false width=8)
+pkg/stream/execution.go:37:24: combineExecutions capturing by value: primary (addr=false assign=false width=16)
+pkg/stream/execution.go:42:2: combineExecutions capturing by value: captureErr (addr=false assign=false width=8)
+pkg/stream/execution.go:37:43: combineExecutions capturing by value: cleanup (addr=false assign=false width=8)
+pkg/stream/execution.go:37:59: combineExecutions capturing by value: dependencies (addr=false assign=false width=24)
+pkg/stream/execution.go:53:3: combineExecutions.func2 capturing by value: .autotmp_0 (addr=false assign=false width=8)
+pkg/stream/execution.go:65:7: combineExecutions.func2 capturing by ref: wg (addr=true assign=false width=16)
+pkg/stream/execution.go:42:2: combineExecutions capturing by value: captureErr (addr=false assign=false width=8)
+pkg/stream/execution.go:71:35: combineExecutions.func2.1 capturing by value: .autotmp_1 (addr=false assign=false width=8)
+pkg/stream/execution.go:71:7: combineExecutions.func2 capturing by value: .autotmp_3 (addr=false assign=false width=8)
+pkg/stream/execution.go:71:4: combineExecutions.func2 capturing by value: .autotmp_4 (addr=false assign=false width=16)
+pkg/stream/execution.go:40:6: combineExecutions capturing by ref: mu (addr=true assign=false width=8)
+pkg/stream/execution.go:39:6: combineExecutions capturing by ref: combinedErr (addr=true assign=true width=16)
+pkg/stream/execution.go:80:12: combineExecutions.func3 capturing by value: .autotmp_1 (addr=false assign=false width=8)
+pkg/stream/execution.go:40:6: mu escapes to heap in combineExecutions:
+pkg/stream/execution.go:40:6:   flow: sync.m ← &mu:
+pkg/stream/execution.go:40:6:     from mu (address-of) at pkg/stream/execution.go:44:6
+pkg/stream/execution.go:40:6:     from sync.m := mu (assign-pair) at pkg/stream/execution.go:44:11
+pkg/stream/execution.go:40:6:   flow: sync.m ← sync.m:
+pkg/stream/execution.go:40:6:     from sync.m.mu (dot of pointer) at pkg/stream/execution.go:44:11
+pkg/stream/execution.go:40:6:     from sync.m.mu (address-of) at pkg/stream/execution.go:44:11
+pkg/stream/execution.go:40:6:     from sync.m := sync.m.mu (assign-pair) at pkg/stream/execution.go:44:11
+pkg/stream/execution.go:40:6:   flow: {heap} ← sync.m:
+pkg/stream/execution.go:40:6:     from (*sync.Mutex).lockSlow(sync.m) (call parameter) at pkg/stream/execution.go:44:11
+pkg/stream/execution.go:42:21: parameter err leaks to {storage for func literal} for combineExecutions.func1 with derefs=0:
+pkg/stream/execution.go:42:21:   flow: combinedErr ← err:
+pkg/stream/execution.go:42:21:     from combinedErr = err (assign) at pkg/stream/execution.go:47:17
+pkg/stream/execution.go:42:21:   flow: {storage for func literal} ← &combinedErr:
+pkg/stream/execution.go:42:21:     from combinedErr (captured by a closure) at pkg/stream/execution.go:81:11
+pkg/stream/execution.go:42:21:     from combinedErr (reference) at pkg/stream/execution.go:81:11
+pkg/stream/execution.go:71:7: func literal escapes to heap in combineExecutions.func2:
+pkg/stream/execution.go:71:7:   flow: .autotmp_3 ← &{storage for func literal}:
+pkg/stream/execution.go:71:7:     from func literal (spill) at pkg/stream/execution.go:71:7
+pkg/stream/execution.go:71:7:     from .autotmp_3, .autotmp_4 = func literal, dep (assign-pair) at pkg/stream/execution.go:71:4
+pkg/stream/execution.go:71:7:   flow: {storage for func literal} ← .autotmp_3:
+pkg/stream/execution.go:71:7:     from .autotmp_3 (captured by a closure) at pkg/stream/execution.go:71:7
+pkg/stream/execution.go:37:59: parameter dependencies leaks to {storage for func literal} for combineExecutions with derefs=1:
+pkg/stream/execution.go:37:59:   flow: {temp} ← dependencies:
+pkg/stream/execution.go:37:59:   flow: dep ← *{temp}:
+pkg/stream/execution.go:37:59:     from for loop (range-deref) at pkg/stream/execution.go:66:17
+pkg/stream/execution.go:37:59:   flow: .autotmp_4 ← dep:
+pkg/stream/execution.go:37:59:     from .autotmp_3, .autotmp_4 = func literal, dep (assign-pair) at pkg/stream/execution.go:71:4
+pkg/stream/execution.go:37:59:   flow: {storage for func literal} ← .autotmp_4:
+pkg/stream/execution.go:37:59:     from .autotmp_4 (captured by a closure) at pkg/stream/execution.go:71:4
+pkg/stream/execution.go:42:16: func literal escapes to heap in combineExecutions:
+pkg/stream/execution.go:42:16:   flow: captureErr ← &{storage for func literal}:
+pkg/stream/execution.go:42:16:     from func literal (spill) at pkg/stream/execution.go:42:16
+pkg/stream/execution.go:42:16:     from captureErr := func literal (assign) at pkg/stream/execution.go:42:13
+pkg/stream/execution.go:42:16:   flow: {storage for func literal} ← captureErr:
+pkg/stream/execution.go:42:16:     from captureErr (captured by a closure) at pkg/stream/execution.go:71:54
+pkg/stream/execution.go:37:24: parameter primary leaks to {storage for func literal} for combineExecutions with derefs=0:
+pkg/stream/execution.go:37:24:   flow: {storage for func literal} ← primary:
+pkg/stream/execution.go:37:24:     from primary (captured by a closure) at pkg/stream/execution.go:56:5
+pkg/stream/execution.go:37:43: parameter cleanup leaks to {storage for func literal} for combineExecutions with derefs=0:
+pkg/stream/execution.go:37:43:   flow: {storage for func literal} ← cleanup:
+pkg/stream/execution.go:37:43:     from cleanup (captured by a closure) at pkg/stream/execution.go:60:6
+pkg/stream/execution.go:37:59: parameter dependencies leaks to {storage for func literal} for combineExecutions with derefs=0:
+pkg/stream/execution.go:37:59:   flow: {storage for func literal} ← dependencies:
+pkg/stream/execution.go:37:59:     from dependencies (captured by a closure) at pkg/stream/execution.go:66:23
+pkg/stream/execution.go:39:6: combinedErr escapes to heap in combineExecutions:
+pkg/stream/execution.go:39:6:   flow: {storage for func literal} ← &combinedErr:
+pkg/stream/execution.go:39:6:     from combinedErr (captured by a closure) at pkg/stream/execution.go:46:7
+pkg/stream/execution.go:39:6:     from combinedErr (reference) at pkg/stream/execution.go:46:7
+pkg/stream/execution.go:42:21: parameter err leaks to combinedErr for combineExecutions.func1 with derefs=0:
+pkg/stream/execution.go:42:21:   flow: combinedErr ← err:
+pkg/stream/execution.go:42:21:     from combinedErr = err (assign) at pkg/stream/execution.go:47:17
+pkg/stream/execution.go:78:8: func literal escapes to heap in combineExecutions:
+pkg/stream/execution.go:78:8:   flow: ~r0 ← &{storage for func literal}:
+pkg/stream/execution.go:78:8:     from func literal (spill) at pkg/stream/execution.go:78:8
+pkg/stream/execution.go:78:8:     from Execution{...} (struct literal element) at pkg/stream/execution.go:76:18
+pkg/stream/execution.go:78:8:     from return Execution{...} (return) at pkg/stream/execution.go:76:2
+pkg/stream/execution.go:37:24: leaking param: primary
+pkg/stream/execution.go:37:43: leaking param: cleanup
+pkg/stream/execution.go:37:59: leaking param: dependencies
+pkg/stream/execution.go:42:21: leaking param: err
+pkg/stream/execution.go:71:12: e does not escape
+pkg/stream/execution.go:39:6: moved to heap: combinedErr
+pkg/stream/execution.go:40:6: moved to heap: mu
+pkg/stream/execution.go:65:7: moved to heap: wg
+pkg/stream/execution.go:42:16: func literal escapes to heap
+pkg/stream/execution.go:52:5: func literal escapes to heap
+pkg/stream/execution.go:71:7: func literal escapes to heap
+pkg/stream/execution.go:78:8: func literal escapes to heap
+pkg/stream/execution.go:87:24: parameter done leaks to ~r0 for executionFromChan with derefs=0:
+pkg/stream/execution.go:87:24:   flow: ~r0 ← done:
+pkg/stream/execution.go:87:24:     from Execution{...} (struct literal element) at pkg/stream/execution.go:88:18
+pkg/stream/execution.go:87:24:     from return Execution{...} (return) at pkg/stream/execution.go:88:2
+pkg/stream/execution.go:88:36: func literal escapes to heap in executionFromChan:
+pkg/stream/execution.go:88:36:   flow: ~r0 ← &{storage for func literal}:
+pkg/stream/execution.go:88:36:     from func literal (spill) at pkg/stream/execution.go:88:36
+pkg/stream/execution.go:88:36:     from Execution{...} (struct literal element) at pkg/stream/execution.go:88:18
+pkg/stream/execution.go:88:36:     from return Execution{...} (return) at pkg/stream/execution.go:88:2
+pkg/stream/execution.go:87:24: leaking param: done to result ~r0 level=0
+pkg/stream/execution.go:88:36: func literal escapes to heap
